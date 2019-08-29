@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">To Do List</string>
+    <string name="action_settings">Settings</string>
+    <string name="about">Acerca de</string>
+    <string name="new_list">New List</string>
+    <string name="name">Name</string>
+</resources>
