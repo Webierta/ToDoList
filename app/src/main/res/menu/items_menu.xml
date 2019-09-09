@@ -1,0 +1,31 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.android.todolist.ListActivity">
+    <item
+        android:id="@+id/menuMore"
+        android:icon="@drawable/ic_more_vert_white_24dp"
+        android:title="@string/menu"
+        app:showAsAction="always">
+
+        <menu>
+
+            <item
+                android:id="@+id/marcar_all"
+                android:icon="@android:drawable/checkbox_on_background"
+                android:orderInCategory="100"
+                android:title="@string/marcar_all" />
+            <item
+                android:id="@+id/desmarcar_all"
+                android:icon="@android:drawable/checkbox_off_background"
+                android:orderInCategory="100"
+                android:title="@string/desmarcar_all" />
+
+            <item
+                android:id="@+id/clear_list"
+                android:icon="@android:drawable/ic_delete"
+                android:orderInCategory="100"
+                android:title="@string/limpiar_lista" />
+        </menu>
+    </item>
+</menu>

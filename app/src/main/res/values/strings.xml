@@ -4,4 +4,10 @@
     <string name="about">Acerca de</string>
     <string name="new_list">New List</string>
     <string name="name">Name</string>
+    <string name="new_item">New Item</string>
+    <string name="marcar_all">Mark all</string>
+    <string name="desmarcar_all">Uncheck all</string>
+    <string name="limpiar_lista">Clear list</string>
+    <string name="menu">Menu</string>
+    <string name="close">Close</string>
 </resources>
