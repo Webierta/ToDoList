@@ -1,17 +1,18 @@
 package com.android.todolist
 
+//import com.android.todolist.MainActivity.UpdateListas.mostrarListas
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 
 data class Lista(
     val nombre: String,
@@ -21,8 +22,13 @@ data class Lista(
 
 var listas: MutableList<Lista> = mutableListOf()
 
-//class MainActivity : AppCompatActivity() {
+//lateinit var adaptadorListas: ArrayAdapter<String>
+//lateinit var listListas: ListView
+
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var miAdapter: RecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,18 +36,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeButtonEnabled(true)
-        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.app_name, R.string.close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-        //toggle.isDrawerIndicatorEnabled = true
 
         navView.setNavigationItemSelectedListener(this)
 
-        fab.setOnClickListener {
-            addNewList()  // showDialogoNewList()
-        }
+        linearLayoutManager = LinearLayoutManager(this)
+        rv_listas.layoutManager = linearLayoutManager
+
+        val dividerItemDecoration = DividerItemDecoration(
+            rv_listas.context,
+            linearLayoutManager.orientation
+        )
+        rv_listas.addItemDecoration(dividerItemDecoration)
+
+        miAdapter = RecyclerAdapter(this, listas)
+        //miAdapter = RecyclerAdapter(this, listas, {lista: Lista -> listaItemClicked(lista)})
+        //rv_listas.setOnClickListener()
+        //miAdapter.setClickListener(this)
+
+        rv_listas.adapter = miAdapter
+
+        //val listListas = listListas
 
         // TEST LISTA
         val listaTest = Lista(
@@ -51,14 +69,62 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             //"Abiu3", "Batuan3", "Black Mulberry3", "Cape Gooseberry3", "Desert banana3"),
             checks = mutableListOf()
         )
-        listas.add(listaTest)
-        addLista(listaTest)
+        //listaNombres.add(listaTest.nombre)
+        //val listaNombres = listas.map { it.nombre }
+        if (listaTest.nombre !in listas.map { it.nombre }) {
+            listas.add(listaTest)
+        }
+
+        //mostrarListas()
+
+        fab.setOnClickListener {
+            addNewList()  // showDialogoNewList()
+        }
+
+        /*listListas.setOnItemLongClickListener { adapterView, view, index, id ->
+            Toast.makeText(this, "Long click detected", Toast.LENGTH_SHORT).show()
+            // dialogo de confirmación
+            // OK -> eliminar lista
+            listas.removeAt(index)
+            adaptadorListas.notifyDataSetChanged()
+            mostrarListas()
+            //val listValue = listListas.getItemAtPosition(index) as String
+            //listaNombres.remove(listValue)
+            true
+        }
+
+        listListas.setOnItemClickListener { adapterView, view, index, id ->
+            //val listValue = listListas.getItemAtPosition(index) as String
+            //val lista = Lista.nombre
+            //val indice = listas.indexOf(listValue)
+            if (listListas.isItemChecked(index)) {
+                listListas.setItemChecked(index, false)
+            } else {
+                listListas.setItemChecked(index, true)
+            }
+            val toActivity = Intent(this, ListActivity::class.java)
+            toActivity.putExtra("indice", index)
+            startActivity(toActivity)
+        }*/
     }
+
+/*    private fun listaItemClicked(lista : Lista) {
+        Toast.makeText(this, "Clicked: ${lista.nombre}", Toast.LENGTH_LONG).show()
+
+        //val index = listas.indexOf(lista.nombre)
+        val toActivity = Intent(this, ListActivity::class.java)
+        toActivity.putExtra("indice", index)
+        this.startActivity(toActivity)
+    }*/
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.newList -> {
                 addNewList()
+            }
+            R.id.removeAllList -> {
+                // dialogo de confirmación
+                // OK -> borrar todas las listas
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -73,9 +139,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         dialogo.onOk = {
             val name = dialogo.editText.text.toString()
+            //listaNombres.add(name)
             val lista = Lista(nombre = name, items = mutableListOf(), checks = mutableListOf())
-            listas.add(lista)
-            addLista(lista)
+            if (name !in listas.map { it.nombre }) {
+                listas.add(lista)
+                miAdapter.notifyItemInserted(listas.indexOf(lista))
+            }
+            // adaptadorListas.notifyDataSetChanged()
+            // mostrarListas()  //addLista(lista)
+
+            //UpdateListas.mostrarListas()
         }
         dialogo.onCancel = {
             Toast.makeText(this, "Operación cancelada", Toast.LENGTH_SHORT).show()
@@ -101,13 +174,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
-        /*
         return when (item.itemId) {
-            R.id.action_about -> true
-            else -> super.onOptionsItemSelected(item)
-        }*/
-        return when (item.itemId) {
+            R.id.action_info -> {
+                val toInfo = Intent(this, Info::class.java)
+                startActivity(toInfo)
+                true
+            }
             R.id.action_about -> {
                 val toAbout = Intent(this, About::class.java)
                 startActivity(toAbout)
@@ -117,72 +189,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun addLista(lista: Lista) {
-        // creating TextView programmatically
-        val textLista = TextView(this)
-        textLista.textSize = 20f
-        textLista.setPadding(0, 0, 0, 30)
-        textLista.text = lista.nombre
-        textLista.setOnClickListener {
-            //Toast.makeText(this, "Creada nueva lista $lista.nombre", Toast.LENGTH_SHORT).show()
-            //val lista = Lista.nombre
-            val index = listas.indexOf(lista)
-            //Toast.makeText(this, "$index", Toast.LENGTH_SHORT).show()
-            val toActivity = Intent(this, ListActivity::class.java)
-            toActivity.putExtra("indice", index)
-            startActivity(toActivity)
-        }
-        // add TextView to LinearLayout
-        layoutListas.addView(textLista)
-    }
+    //object UpdateListas{
+/*    fun mostrarListas() {
+        //val listaNombres = listas.map { it.nombre }
+        //adaptadorListas = ArrayAdapter(this, android.R.layout.simple_list_item_1, lista.)
 
-    /*private fun showDialogoNewList() {
-        val context = this
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle("New List")
-        //builder.setTitle(getString(R.string.new_list))
+        val listaNombres = listas.map { it.nombre }
+        adaptadorListas = ArrayAdapter(this, android.R.layout.simple_list_item_checked, listaNombres)
+        listListas.adapter = adaptadorListas
 
-        // https://stackoverflow.com/questions/10695103/creating-custom-alertdialog-what-is-the-root-view
-        // Seems ok to inflate view with null rootView
-        val view = layoutInflater.inflate(R.layout.dialog_new_list, null)
-        //val listEditText = view.findViewById(R.id.editText_newList) as EditText
-        val listEditText = view.editText_newList as EditText
-        builder.setView(view)
-
-        // set up the ok button
-        builder.setPositiveButton(android.R.string.ok) { dialog, p1 ->
-            val newList = listEditText.text
-            var isValid = true
-            if (newList.isBlank()) {
-                listEditText.error = "Vacío"
-                isValid = false
-            }
-            if (isValid) {
-                // do something
-                //var name_list = listEditText.text.toString()
-                val nameList = listEditText.text.toString()
-                buildList(nameList)
-                //addLista(nameList)
-            }
-            if (!isValid) {
-                dialog.dismiss()
+        for ((i, cadaLista) in listas.withIndex()) {
+            if (cadaLista.checks.size > 0 && cadaLista.items.size < 1) {
+                listListas.setItemChecked(i, true)
             }
         }
-
-        builder.setNegativeButton(android.R.string.cancel) { dialog, p1 ->
-            dialog.cancel()
-        }
-
-        builder.show()
-    }
-
-    private fun buildList(name: String) {
-        //Toast.makeText(this, "Creada nueva lista $name", Toast.LENGTH_SHORT).show()
-        //Snackbar.make(fab, "Creada nueva lista $name", Snackbar.LENGTH_LONG)
-        //    .setAction("Action", null).show()
-        val lista = Lista(nombre = name, items = mutableListOf(), checks = mutableListOf())
-        listas.add(lista)
-        addLista(lista)
     }*/
 
+
+    //}  // Object
+    /*companion object {
+        fun updateListas(mainActivity: MainActivity){
+            mainActivity.miAdapter.notifyDataSetChanged()
+        }
+    }*/
+
+/*    companion object {
+        fun removeList(index: Int){
+            listas.removeAt(index)
+            //adapter.notifyItemRemoved(index)
+        }
+    }*/
 }

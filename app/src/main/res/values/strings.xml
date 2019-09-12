@@ -1,13 +1,19 @@
 <resources>
     <string name="app_name">To Do List</string>
     <string name="action_settings">Settings</string>
-    <string name="about">Acerca de</string>
+    <string name="info">Info</string>
+    <string name="about">About</string>
     <string name="new_list">New List</string>
+    <string name="remove_all_lists">Remove all Lists</string>
+    <string name="sort_a_z">Sort A to Z</string>
+    <string name="sort_full">Sort by full</string>
     <string name="name">Name</string>
     <string name="new_item">New Item</string>
     <string name="marcar_all">Mark all</string>
     <string name="desmarcar_all">Uncheck all</string>
     <string name="limpiar_lista">Clear list</string>
+    <string name="limpiar_lista_msg">Remove all items in the list?</string>
     <string name="menu">Menu</string>
     <string name="close">Close</string>
+    <string name="removed_item">The item %1$s has been removed</string>
 </resources>

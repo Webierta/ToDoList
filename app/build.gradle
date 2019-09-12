@@ -39,4 +39,5 @@ dependencies {
 
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
