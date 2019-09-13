@@ -7,15 +7,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_list.*
 
-
 lateinit var lista: Lista
-//lateinit var adaptadorItems: ArrayAdapter<String>
 lateinit var listaTotal: List<String>
 //var listaTotal: List<String> = mutableListOf()
 //var listaTotal: List<MutableList<String>> = mutableListOf()
@@ -25,7 +24,8 @@ class ListActivity : AppCompatActivity() {
 
     //val mainActivity: MainActivity? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var miAdapter: RecyclerAdapterItem
+    //private lateinit var miAdapter: RecyclerAdapterItem
+    private  lateinit var miAdapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,6 @@ class ListActivity : AppCompatActivity() {
         val indice = bundle?.getInt("indice")
         //val getNombre = bundle?.getString("nombreLista")
         //val getNombre = intent.getStringExtra("nombreLista")
-
         lista = listas[indice!!]
         //val nombreLista = lista.nombre
         //listaTotal = (lista.items + lista.checks) as MutableList<String>
@@ -51,15 +50,13 @@ class ListActivity : AppCompatActivity() {
 
         linearLayoutManager = LinearLayoutManager(this)
         rv_items.layoutManager = linearLayoutManager
-
         val dividerItemDecoration = DividerItemDecoration(
             rv_items.context,
             linearLayoutManager.orientation
         )
         rv_items.addItemDecoration(dividerItemDecoration)
-
-        //miAdapter = RecyclerAdapterItem(this, listas, indice)
-        miAdapter = RecyclerAdapterItem(this, listas, indice) { partItem: String -> clickItem(partItem) }
+        //miAdapter = RecyclerAdapterItem(this, listas, indice) { partItem: String -> clickItem(partItem) }
+        miAdapter = MyAdapter(this, listas, indice) { partItem: String -> clickItem(partItem) }
         rv_items.adapter = miAdapter
 
         //mostrarListaItems()
@@ -73,10 +70,15 @@ class ListActivity : AppCompatActivity() {
 
         okNewItem.setOnClickListener { view ->
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-            if (!newItem.text.isBlank()) {  // y no está repetido en esa lista
+            if (!newItem.text.isBlank()) {
                 val name = newItem.text.toString()
-                lista.items.add(name)
-                miAdapter.notifyItemInserted(lista.items.indexOf(name))
+                if (name !in lista.items && name !in lista.checks) {
+                    lista.items.add(name)
+                    miAdapter.notifyItemInserted(lista.items.indexOf(name))
+                } else {
+                    Toast.makeText(this, this.getString(R.string.elemento_repetido, name, "item"), Toast.LENGTH_SHORT).show()
+                }
+                //miAdapter.notifyDataSetChanged()
             }
             layoutNewItem.visibility = View.GONE
             newItem.setText("")
@@ -130,13 +132,20 @@ class ListActivity : AppCompatActivity() {
             lista.items.add(item)
         }
         miAdapter.notifyDataSetChanged()
+        //MainActivity().updateAdapter()
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        //onBackPressed() finish()
+        //onBackPressed() // finish()
         val refresh = Intent(this, MainActivity::class.java)
         startActivity(refresh)
         this.finish()
+        //finish()
+        //miAdapter.notifyDataSetChanged()
+        //MainActivity.Update.actualizar()
+        //MainActivity().updateAdapter()
+        //    .Companion.actualizar()
+        //finish()
         return true
     }
 

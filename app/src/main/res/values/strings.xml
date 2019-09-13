@@ -12,8 +12,10 @@
     <string name="marcar_all">Mark all</string>
     <string name="desmarcar_all">Uncheck all</string>
     <string name="limpiar_lista">Clear list</string>
-    <string name="limpiar_lista_msg">Remove all items in the list?</string>
+    <string name="limpiar_lista_msg">Remove all items in this list?</string>
     <string name="menu">Menu</string>
     <string name="close">Close</string>
-    <string name="removed_item">The item %1$s has been removed</string>
+    <string name="removed_item">The %1$s item has been removed</string>
+    <string name="elemento_eliminado">The %1$s %2$s has been removed</string>
+    <string name="elemento_repetido">The %1$s %2$s already exists</string>
 </resources>

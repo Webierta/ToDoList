@@ -35,13 +35,29 @@ class RecyclerAdapter(
 
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
         val item = misListas[position]
-        holder.bind(item, context)
+        //holder.bind(item, context)
         //holder.listaNombre.text = misListas[position]
+        holder.itemView.setOnClickListener {
+            Toast.makeText(context, misListas[position].nombre, Toast.LENGTH_SHORT).show()
+            val toActivity = Intent(context, ListActivity::class.java)
+            //val posicion = listas.indexOf(lista)
+            toActivity.putExtra("indice", position)
+            //toActivity.putExtra("nombreLista", lista.nombre)
+            context.startActivity(toActivity)
+        }
+
+        holder.itemView.setOnLongClickListener {
+            Toast.makeText(context, "Long click detected", Toast.LENGTH_SHORT).show()
+            listas.remove(misListas[position])
+            notifyDataSetChanged()
+            true
+        }
         when {
             item.items.size < 1 && item.checks.size < 1 -> holder.itemView.imgLista.setImageResource(R.drawable.ic_playlist_add_black_24dp)
-            item.items.size < 1 -> holder.itemView.imgLista.setImageResource(R.drawable.ic_done_all_green_24dp)
-            //item.checks.size > 0 -> holder.itemView.imgLista.setImageResource(R.drawable.ic_priority_high_red_24dp)
+            item.items.size < 1 && item.checks.size > 0 -> holder.itemView.imgLista.setImageResource(R.drawable.ic_done_all_green_24dp)
+            item.items.size > 0 && item.checks.size > 0-> holder.itemView.imgLista.setImageResource(R.drawable.ic_priority_high_red_24dp)
         }
+        holder.bind(item, context)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -58,7 +74,7 @@ class RecyclerAdapter(
                 }
             }*/
 
-            itemView.setOnClickListener {
+            /*itemView.setOnClickListener {
                 Toast.makeText(context, lista.nombre, Toast.LENGTH_SHORT).show()
                 val toActivity = Intent(context, ListActivity::class.java)
                 val posicion = listas.indexOf(lista)
@@ -66,24 +82,18 @@ class RecyclerAdapter(
                 //toActivity.putExtra("nombreLista", lista.nombre)
                 context.startActivity(toActivity)
                 //context.startActivity(Intent(context, ListActivity::class.java))
-            }
+            }*/
 
-            itemView.setOnLongClickListener {
+            /*itemView.setOnLongClickListener {
                 Toast.makeText(context, "Long click detected", Toast.LENGTH_SHORT).show()
-
                 //MainActivity.removeList(position)
                 // dialogo de confirmación
                 // OK -> eliminar lista
                 listas.remove(lista)  //listas.removeAt(position)
-
                 // ACTUALIZAR ADAPTADOR
-                //MainActivity.updateListas(MainActivity())
                 context.startActivity(Intent(context, MainActivity::class.java))
-
-                //notifyItemRemoved(position)
-                //this.notifyDataSetChanged()
                 true
-            }
+            }*/
             //itemView.setOnClickListener { clickListener(lista) }
         }
     }

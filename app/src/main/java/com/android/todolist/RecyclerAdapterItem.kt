@@ -71,11 +71,9 @@ class RecyclerAdapterItem(
                     lista.checks.remove(item)
                     lista.items.add(item)
                 }
-
             }*/
             itemView.setOnClickListener { clickListener(item) }
         }
-
     }
 
 }
