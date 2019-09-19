@@ -9,7 +9,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,12 +22,11 @@ data class Lista(
     val checks: MutableList<String>
 )
 
-var listas: MutableList<Lista> = mutableListOf()
+var listas: MutableList<Lista> = mutableListOf<Lista>()
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
-    //private lateinit var miAdapter: RecyclerAdapter
     private lateinit var miAdapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,13 +48,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         rv_listas.addItemDecoration(dividerItemDecoration)
         //miAdapter = RecyclerAdapter(this, listas)
-        miAdapter = MyAdapter(this, listas, 0) { lista: String -> clickItem(lista) }
+        miAdapter = MyAdapter(this, listas, 0)
+        //miAdapter = MyAdapter(this, listas, 0) { lista: String -> clickItem(lista) }
         rv_listas.adapter = miAdapter
 
         // TEST LISTA
         val listaTest = Lista(
             nombre = "Test",
-            items = mutableListOf("Abiu", "Batuan", "Black Mulberry", "Cape Gooseberry", "Desert banana"),
+            items = mutableListOf("A", "B", "C", "D", "E"),
             //"Abiu2", "Batuan2", "Black Mulberry2", "Cape Gooseberry2", "Desert banana2",
             //"Abiu3", "Batuan3", "Black Mulberry3", "Cape Gooseberry3", "Desert banana3"),
             checks = mutableListOf()
@@ -60,7 +63,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //listaNombres.add(listaTest.nombre)
         //val listaNombres = listas.map { it.nombre }
         if (listaTest.nombre !in listas.map { it.nombre }) {
+            val lastIndex = listas.lastIndex
             listas.add(listaTest)
+            miAdapter.notifyItemInserted(lastIndex + 1)
         }
 
         //mostrarListas()
@@ -99,7 +104,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun clickItem(item: String) {
         val listaNombres = listas.map { it.nombre }
         val posicion = listaNombres.indexOf(item)
-        Toast.makeText(this, listas[posicion].nombre, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, listas[posicion].nombre, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, listaNombres[posicion], Toast.LENGTH_SHORT).show()
         val toActivity = Intent(this, ListActivity::class.java)
         toActivity.putExtra("indice", posicion)
         this.startActivity(toActivity)

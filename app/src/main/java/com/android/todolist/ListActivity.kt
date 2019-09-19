@@ -7,25 +7,25 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_list.*
+import kotlinx.android.synthetic.main.recyclerview_item_row.*
 
-lateinit var lista: Lista
-lateinit var listaTotal: List<String>
-//var listaTotal: List<String> = mutableListOf()
-//var listaTotal: List<MutableList<String>> = mutableListOf()
-//var listaTotal: MutableList<String> = mutableListOf<String>()
+
+//lateinit var lista: Lista
+//lateinit var listaTotal: List<String>
 
 class ListActivity : AppCompatActivity() {
 
-    //val mainActivity: MainActivity? = null
+    private lateinit var lista: Lista
+    private lateinit var listaTotal: List<String>
     private lateinit var linearLayoutManager: LinearLayoutManager
-    //private lateinit var miAdapter: RecyclerAdapterItem
-    private  lateinit var miAdapter: MyAdapter
+    private lateinit var miAdapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +33,7 @@ class ListActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         val indice = bundle?.getInt("indice")
-        //val getNombre = bundle?.getString("nombreLista")
-        //val getNombre = intent.getStringExtra("nombreLista")
         lista = listas[indice!!]
-        //val nombreLista = lista.nombre
-        //listaTotal = (lista.items + lista.checks) as MutableList<String>
         listaTotal = lista.items + lista.checks
 
         supportActionBar?.apply {
@@ -55,9 +51,18 @@ class ListActivity : AppCompatActivity() {
             linearLayoutManager.orientation
         )
         rv_items.addItemDecoration(dividerItemDecoration)
-        //miAdapter = RecyclerAdapterItem(this, listas, indice) { partItem: String -> clickItem(partItem) }
-        miAdapter = MyAdapter(this, listas, indice) { partItem: String -> clickItem(partItem) }
+        miAdapter = MyAdapter(this, listas, indice)
+        //miAdapter = MyAdapter(this, listas, indice) { partItem: String -> clickItem(partItem) }
         rv_items.adapter = miAdapter
+
+        /*for (i in 0 until miAdapter.itemCount) {
+            val v = cLayoutItem.getChildAt(i)
+            if (v !is ViewGroup) {
+                if (v is ImageView) {
+                    v.setImageResource(R.drawable.ic_check_box_green_24dp)
+                }
+            }
+        }*/
 
         //mostrarListaItems()
 
@@ -74,9 +79,10 @@ class ListActivity : AppCompatActivity() {
                 val name = newItem.text.toString()
                 if (name !in lista.items && name !in lista.checks) {
                     lista.items.add(name)
-                    miAdapter.notifyItemInserted(lista.items.indexOf(name))
+                    miAdapter.notifyItemInserted(lista.items.lastIndex)
                 } else {
-                    Toast.makeText(this, this.getString(R.string.elemento_repetido, name, "item"), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, this.getString(R.string.elemento_repetido, name, "item"), Toast.LENGTH_SHORT)
+                        .show()
                 }
                 //miAdapter.notifyDataSetChanged()
             }
@@ -121,17 +127,36 @@ class ListActivity : AppCompatActivity() {
             //mostrarListaItems()
             miAdapter.notifyDataSetChanged()
         }*/
+
     }
+
+    /*private fun show_children(v: View) {
+        val viewgroup = v as ViewGroup
+        for (i in 0 until 2) {  // for (i in 0 until viewgroup.childCount) {
+            val v1 = viewgroup.getChildAt(i)
+            if (v1 is ViewGroup) show_children(v1)
+            if (v1 is ImageView){
+                v1.setImageResource(R.drawable.ic_check_box_green_24dp)
+            }
+        }
+    }*/
 
     private fun clickItem(item: String) {
         if (item in lista.items) {
+            val posItem = lista.items.indexOf(item) //listaTotal.indexOf(item)
+            //val posCheck = listaTotal.lastIndex + 1
             lista.items.remove(item)
             lista.checks.add(item)
+            miAdapter.notifyItemMoved(posItem, lista.checks.lastIndex)
         } else {
+            val posCheck = lista.checks.indexOf(item)
+            //val posItem = listaTotal.lastIndex + 1
             lista.checks.remove(item)
             lista.items.add(item)
+            //imgItem.setImageResource(R.drawable.ic_check_box_outline_blank_gray_24dp)
+            miAdapter.notifyItemMoved(posCheck, lista.items.lastIndex)
         }
-        miAdapter.notifyDataSetChanged()
+        //miAdapter.notifyDataSetChanged()
         //MainActivity().updateAdapter()
     }
 
@@ -207,4 +232,5 @@ class ListActivity : AppCompatActivity() {
             listItems.setItemChecked(i, true)
         }
     }*/
+
 }
