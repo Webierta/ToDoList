@@ -7,20 +7,19 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_list.*
-import kotlinx.android.synthetic.main.recyclerview_item_row.*
+import kotlinx.android.synthetic.main.activity_main.*
 
-
-//lateinit var lista: Lista
-//lateinit var listaTotal: List<String>
 
 class ListActivity : AppCompatActivity() {
+
+    private lateinit var tareasViewModel: TaskViewModel
 
     private lateinit var lista: Lista
     private lateinit var listaTotal: List<String>
@@ -30,6 +29,10 @@ class ListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
+
+        tareasViewModel = run {
+            ViewModelProviders.of(this).get(TaskViewModel::class.java)
+        }
 
         val bundle = intent.extras
         val indice = bundle?.getInt("indice")
@@ -80,6 +83,15 @@ class ListActivity : AppCompatActivity() {
                 if (name !in lista.items && name !in lista.checks) {
                     lista.items.add(name)
                     miAdapter.notifyItemInserted(lista.items.lastIndex)
+                    //tareasViewModel.saveTarea(TaskEntity(lista.nombre, lista.items.joinToString(), lista.checks.joinToString()))
+                    tareasViewModel.updateTarea(
+                        TaskEntity(
+                            lista.nombre,
+                            lista.items.joinToString(),
+                            lista.checks.joinToString()
+                        )
+                    )
+
                 } else {
                     Toast.makeText(this, this.getString(R.string.elemento_repetido, name, "item"), Toast.LENGTH_SHORT)
                         .show()
@@ -141,7 +153,7 @@ class ListActivity : AppCompatActivity() {
         }
     }*/
 
-    private fun clickItem(item: String) {
+    /*private fun clickItem(item: String) {
         if (item in lista.items) {
             val posItem = lista.items.indexOf(item) //listaTotal.indexOf(item)
             //val posCheck = listaTotal.lastIndex + 1
@@ -158,19 +170,12 @@ class ListActivity : AppCompatActivity() {
         }
         //miAdapter.notifyDataSetChanged()
         //MainActivity().updateAdapter()
-    }
+    }*/
 
     override fun onSupportNavigateUp(): Boolean {
-        //onBackPressed() // finish()
         val refresh = Intent(this, MainActivity::class.java)
         startActivity(refresh)
-        this.finish()
-        //finish()
-        //miAdapter.notifyDataSetChanged()
-        //MainActivity.Update.actualizar()
-        //MainActivity().updateAdapter()
-        //    .Companion.actualizar()
-        //finish()
+        this.finish()  //finish() //onBackPressed()
         return true
     }
 
@@ -184,23 +189,39 @@ class ListActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        fun updateItemMenu() {
-            //adaptadorItems.notifyDataSetChanged()
-            //mostrarListaItems()
-            miAdapter.notifyDataSetChanged()
-        }
+
         when (item.itemId) {
             R.id.marcar_all -> {
-                lista.checks += lista.items
+                lista.checks.addAll(0, lista.items)  // lista.checks += lista.items
                 lista.items.clear()
-                updateItemMenu()
+                miAdapter.notifyDataSetChanged()
+                tareasViewModel.updateTarea(
+                    TaskEntity(
+                        lista.nombre,
+                        lista.items.joinToString(),
+                        lista.checks.joinToString()
+                    )
+                )
+                // CONTROL UPDATE DATA
+                /*val listaTemporal = (lista.items + lista.checks) as MutableList<String>
+                for ((index, cadaItem) in listaTemporal.withIndex()){
+                    println("""
+                |$index $cadaItem""".trimMargin())
+                }*/
                 return true
 
             }
             R.id.desmarcar_all -> {
                 lista.items += lista.checks
                 lista.checks.clear()
-                updateItemMenu()
+                miAdapter.notifyDataSetChanged()
+                tareasViewModel.updateTarea(
+                    TaskEntity(
+                        lista.nombre,
+                        lista.items.joinToString(),
+                        lista.checks.joinToString()
+                    )
+                )
                 return true
             }
             R.id.clear_list -> {
@@ -210,7 +231,14 @@ class ListActivity : AppCompatActivity() {
                 dialogBuilder.setPositiveButton(android.R.string.ok) { _, _ ->
                     lista.items.clear()
                     lista.checks.clear()
-                    updateItemMenu()
+                    miAdapter.notifyDataSetChanged()
+                    tareasViewModel.updateTarea(
+                        TaskEntity(
+                            lista.nombre,
+                            lista.items.joinToString(),
+                            lista.checks.joinToString()
+                        )
+                    )
                 }
                 dialogBuilder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
                     dialog.cancel()
@@ -232,5 +260,4 @@ class ListActivity : AppCompatActivity() {
             listItems.setItemChecked(i, true)
         }
     }*/
-
 }

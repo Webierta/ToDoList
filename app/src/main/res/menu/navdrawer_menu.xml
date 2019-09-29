@@ -7,9 +7,9 @@
         android:title="@string/new_list" />
 
     <item
-        android:id="@+id/sortFull"
+        android:id="@+id/sortDone"
         android:icon="@drawable/ic_playlist_add_check_black_24dp"
-        android:title="@string/sort_full" />
+        android:title="@string/sort_done" />
 
     <item
         android:id="@+id/sortAToZ"

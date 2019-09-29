@@ -15,6 +15,8 @@ class About : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
         }
 
+        // TODO: Contenido
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

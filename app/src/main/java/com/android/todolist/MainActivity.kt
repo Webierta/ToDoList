@@ -6,32 +6,35 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
-data class Lista(
-    val nombre: String,
-    val items: MutableList<String>,
-    val checks: MutableList<String>
-)
+data class Lista(var nombre: String, val items: MutableList<String>, val checks: MutableList<String>)
 
-var listas: MutableList<Lista> = mutableListOf<Lista>()
+var listas = mutableListOf<Lista>()
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var tareasViewModel: TaskViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var miAdapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        tareasViewModel = run {
+            ViewModelProviders.of(this).get(TaskViewModel::class.java)
+        }
+        addObserver()
+        //addContact_button.setOnClickListener { addContact() }
 
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeButtonEnabled(true)
@@ -51,23 +54,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         miAdapter = MyAdapter(this, listas, 0)
         //miAdapter = MyAdapter(this, listas, 0) { lista: String -> clickItem(lista) }
         rv_listas.adapter = miAdapter
-
-        // TEST LISTA
-        val listaTest = Lista(
-            nombre = "Test",
-            items = mutableListOf("A", "B", "C", "D", "E"),
-            //"Abiu2", "Batuan2", "Black Mulberry2", "Cape Gooseberry2", "Desert banana2",
-            //"Abiu3", "Batuan3", "Black Mulberry3", "Cape Gooseberry3", "Desert banana3"),
-            checks = mutableListOf()
-        )
-        //listaNombres.add(listaTest.nombre)
-        //val listaNombres = listas.map { it.nombre }
-        if (listaTest.nombre !in listas.map { it.nombre }) {
-            val lastIndex = listas.lastIndex
-            listas.add(listaTest)
-            miAdapter.notifyItemInserted(lastIndex + 1)
-        }
-
         //mostrarListas()
 
         fab.setOnClickListener {
@@ -101,7 +87,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }*/
     }
 
-    private fun clickItem(item: String) {
+    private fun addObserver() {
+        val observer = Observer<List<TaskEntity>> { tareas ->
+            if (tareas != null) for (tarea in tareas) {
+                val listaItems =
+                    if (tarea.items.isEmpty()) mutableListOf() else tarea.items.split(",").map { it.trim() } as MutableList<String>
+                val listaCheck =
+                    if (tarea.checks.isEmpty()) mutableListOf() else tarea.checks.split(",").map { it.trim() } as MutableList<String>
+                val listaTest = Lista(nombre = tarea.nombre, items = listaItems, checks = listaCheck)
+                if (listaTest.nombre !in listas.map { it.nombre }) {
+                    val lastIndex = listas.lastIndex
+                    listas.add(listaTest)
+                    miAdapter.notifyItemInserted(lastIndex + 1)
+                }
+            }
+        }
+        tareasViewModel.tareas.observe(this, observer)
+    }
+
+    /*private fun clickItem(item: String) {
         val listaNombres = listas.map { it.nombre }
         val posicion = listaNombres.indexOf(item)
         //Toast.makeText(this, listas[posicion].nombre, Toast.LENGTH_SHORT).show()
@@ -109,7 +113,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toActivity = Intent(this, ListActivity::class.java)
         toActivity.putExtra("indice", posicion)
         this.startActivity(toActivity)
-    }
+    }*/
 
     /*private fun listaItemClicked(lista : Lista) {
         Toast.makeText(this, "Clicked: ${lista.nombre}", Toast.LENGTH_LONG).show()
@@ -121,11 +125,53 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
             R.id.newList -> {
                 addNewList()
             }
+
+            R.id.sortDone -> {
+                // TODO: sort by done
+            }
+
+            R.id.sortAToZ -> {
+                val listasAZ = listas.sortedBy { it.nombre } as MutableList<Lista>
+                listas.clear()
+                miAdapter.notifyDataSetChanged()
+                tareasViewModel.clearTabla()
+
+                for (listaAZ in listasAZ) {
+                    listas.add(listaAZ)
+                    miAdapter.notifyItemInserted(listas.indexOf(listaAZ))
+                    tareasViewModel.saveTarea(TaskEntity(
+                        listaAZ.nombre,
+                        listaAZ.items.joinToString(),
+                        listaAZ.checks.joinToString()
+                    ))
+                }
+                rv_listas.adapter = miAdapter
+
+                /*val intent = intent
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                finish()
+                overridePendingTransition(0, 0)
+                startActivity(intent)
+                overridePendingTransition(0, 0)*/
+            }
+
             R.id.removeAllList -> {
-                // TODO: dialogo de confirmación: OK -> borrar todas las listas
+                val dialogBuilder = AlertDialog.Builder(this)
+                dialogBuilder.setTitle(R.string.delete_listas)
+                dialogBuilder.setMessage(R.string.delete_listas_msg)
+                dialogBuilder.setPositiveButton(android.R.string.ok) { _, _ ->
+                    listas.clear()
+                    miAdapter.notifyDataSetChanged()  // updateItemMenu()
+                    tareasViewModel.clearTabla()
+                }
+                dialogBuilder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
+                    dialog.cancel()
+                }
+                dialogBuilder.show()
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -140,21 +186,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         dialogo.onOk = {
             val name = dialogo.editText.text.toString()
-            //listaNombres.add(name)
-            val lista = Lista(nombre = name, items = mutableListOf(), checks = mutableListOf())
+            val lista = Lista(
+                nombre = name,
+                items = mutableListOf(),
+                checks = mutableListOf()
+            )
             if (name !in listas.map { it.nombre }) {
                 listas.add(lista)
                 miAdapter.notifyItemInserted(listas.indexOf(lista))
+                tareasViewModel.saveTarea(
+                    TaskEntity(
+                        lista.nombre,
+                        lista.items.joinToString(),
+                        lista.checks.joinToString()
+                    )
+                )
             } else {
                 Toast.makeText(this, this.getString(R.string.elemento_repetido, name, "list"), Toast.LENGTH_SHORT)
                     .show()
             }
-            // adaptadorListas.notifyDataSetChanged()
-            // mostrarListas()  //addLista(lista)
         }
-        dialogo.onCancel = {
-            Toast.makeText(this, "Operación cancelada", Toast.LENGTH_SHORT).show()
-        }
+        dialogo.onCancel = { Toast.makeText(this, "Operación cancelada", Toast.LENGTH_SHORT).show() }
         dialogo.show(supportFragmentManager, "editDescription")
     }
 
