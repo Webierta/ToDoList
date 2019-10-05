@@ -5,10 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +16,7 @@ import kotlinx.android.synthetic.main.recyclerview_list_row.view.*
 class MyAdapter(
     private val context: Context,
     private val misListas: MutableList<Lista> = ArrayList(),
-    private val index: Int  //,
-    //private val clickListener: (String) -> Unit
+    val index: Int
 ) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
     private lateinit var tareasViewModel: TaskViewModel
@@ -28,11 +25,9 @@ class MyAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         val layout = if (context is MainActivity) R.layout.recyclerview_list_row else R.layout.recyclerview_item_row
         val itemView = layoutInflater.inflate(layout, parent, false)
-
         tareasViewModel = run {
             ViewModelProviders.of(context as AppCompatActivity).get(TaskViewModel::class.java)
         }
-
         return MyAdapter.ViewHolder(itemView)
     }
 
@@ -40,7 +35,7 @@ class MyAdapter(
         return if (context is MainActivity) misListas.size else misListas[index].items.size + misListas[index].checks.size
     }
 
-    private fun getListaItems(): MutableList<String> {
+    fun getListaItems(): MutableList<String> {
         return (misListas[index].items + misListas[index].checks) as MutableList<String>
     }
 
@@ -62,7 +57,7 @@ class MyAdapter(
                 context.startActivity(toActivity)
             }
 
-            holder.itemView.setOnLongClickListener {
+            /*holder.itemView.setOnLongClickListener {
                 //val listaSelect = misListas[position]
                 val pos = misListas.indexOf(item)
                 val popupMenu = PopupMenu(context, it)
@@ -100,16 +95,16 @@ class MyAdapter(
                     true
                 }
                 popupMenu.show()
-                /*Toast.makeText(
+                *//*Toast.makeText(
                     context,
                     context.getString(R.string.elemento_eliminado, item.nombre, "list"),
                     Toast.LENGTH_SHORT
                 ).show()
                 val pos = misListas.indexOf(item)  //val pos = listas.indexOf(item)
                 misListas.remove(item) // remove(misListas[position])
-                notifyItemRemoved(pos)*/
+                notifyItemRemoved(pos)*//*
                 true
-            }
+            }*/
             holder.bind(context, item)  // holder.bind(context, item, clickListener)
         }
 
@@ -120,63 +115,32 @@ class MyAdapter(
                 in misListas[index].checks -> holder.itemView.imgItem.setImageResource(R.drawable.ic_check_box_green_24dp)
                 else -> holder.itemView.imgItem.setImageResource(R.drawable.ic_check_box_outline_blank_gray_24dp)
             }
-            // CONTROL UPDATE DATA
-            /*for ((index, cadaItem) in listaTotal.withIndex()){
-                println("""
-                    |$index $cadaItem""".trimMargin())
-            }*/
 
             holder.itemView.setOnClickListener {
                 if (item in misListas[index].items) {
-                    listaTotal =
-                        getListaItems() // (misListas[index].items + misListas[index].checks) as MutableList<String>
+                    listaTotal = getListaItems() // (misListas[index].items + misListas[index].checks) as MutableList<String>
                     //item = listaTotal[position]
                     val pos = listaTotal.indexOf(item)
                     val to = listaTotal.lastIndex
-                    for (i in pos until to) {
-                        listaTotal[i] = listaTotal.set(i + 1, listaTotal[i])
-                    }
-                    //Toast.makeText(context, "$item de $pos a $to", Toast.LENGTH_SHORT).show()
+                    for (i in pos until to) listaTotal[i] = listaTotal.set(i + 1, listaTotal[i])
                     misListas[index].items.remove(item)  // removeAt(pos)
                     misListas[index].checks.add(item)
                     notifyItemMoved(pos, to)
                     holder.itemView.imgItem.setImageResource(R.drawable.ic_check_box_green_24dp)  // holder.itemView = it
-                    /*listaTotal = getListaItems() // (misListas[index].items + misListas[index].checks) as MutableList<String>
-                    // CONTROL UPDATE DATA
-                    for ((index, cadaItem) in listaTotal.withIndex()){
-                        println("""
-                    |$index $cadaItem""".trimMargin())
-                    }*/
-                    //tareasViewModel.updateTarea(TaskEntity(lista.nombre, lista.items.joinToString(), lista.checks.joinToString()))
                     tareasViewModel.updateTarea(
-                        TaskEntity(
-                            misListas[index].nombre,
-                            misListas[index].items.joinToString(),
-                            misListas[index].checks.joinToString()
-                        )
+                        TaskEntity(misListas[index].nombre, misListas[index].items.joinToString(), misListas[index].checks.joinToString())
                     )
                 } else {
-                    listaTotal =
-                        getListaItems() // (misListas[index].items + misListas[index].checks) as MutableList<String>
-                    // CONTROL UPDATE DATA
-                    /*for ((index, cadaItem) in listaTotal.withIndex()){
-                        println("""
-                    |$index $cadaItem""".trimMargin())
-                    }*/
+                    listaTotal = getListaItems()
                     //item = listaTotal[position]
                     val pos = listaTotal.indexOf(item)
                     val to = 0  // // if (misListas[index].items.isEmpty()) 0 else misListas[index].items.lastIndex + 1
                     println("$item en $pos")
                     if (pos != 0) {
-                        for (i in pos..to + 1) {
-                            listaTotal[i] = listaTotal.set(i - 1, listaTotal[i])
-                        }
+                        for (i in pos..to + 1) listaTotal[i] = listaTotal.set(i - 1, listaTotal[i])
                     } else {
-                        for (i in pos until to) {
-                            listaTotal[i] = listaTotal.set(i + 1, listaTotal[i])
-                        }
+                        for (i in pos until to) listaTotal[i] = listaTotal.set(i + 1, listaTotal[i])
                     }
-                    //Toast.makeText(context, "$item de $pos a 0", Toast.LENGTH_SHORT).show()
                     misListas[index].checks.remove(item)  // removeAt(pos)
                     misListas[index].items.add(0, item)
                     notifyItemMoved(pos, 0)
@@ -194,23 +158,13 @@ class MyAdapter(
                         }
                     }*/
                     holder.itemView.imgItem.setImageResource(R.drawable.ic_check_box_outline_blank_gray_24dp)
-                    /*listaTotal = getListaItems() // (misListas[index].items + misListas[index].checks) as MutableList<String>
-                    // CONTROL UPDATE DATA
-                    for ((index, cadaItem) in listaTotal.withIndex()){
-                        println("""
-                    |$index $cadaItem""".trimMargin())
-                    }*/
                     tareasViewModel.updateTarea(
-                        TaskEntity(
-                            misListas[index].nombre,
-                            misListas[index].items.joinToString(),
-                            misListas[index].checks.joinToString()
-                        )
+                        TaskEntity(misListas[index].nombre, misListas[index].items.joinToString(), misListas[index].checks.joinToString())
                     )
                 }
             }
 
-            holder.itemView.setOnLongClickListener {
+            /*holder.itemView.setOnLongClickListener {
                 //listaTotal = getListaItems() // (misListas[index].items + misListas[index].checks) as MutableList<String>
                 // val item = listaTotal[position]
                 //val pos = listaTotal.indexOf(item) // pos = misListas[index].items/checks.indexOf(item)
@@ -220,11 +174,8 @@ class MyAdapter(
                     context.getString(R.string.elemento_eliminado, item, "item"),
                     Toast.LENGTH_SHORT
                 ).show()
-                if (item in misListas[index].items) {
-                    misListas[index].items.remove(item)
-                } else {
-                    misListas[index].checks.remove(item) // lista.checks.remove(item)
-                }
+                // lista.checks.remove(item)
+                if (item in misListas[index].items) misListas[index].items.remove(item) else misListas[index].checks.remove(item)
                 notifyItemRemoved(pos)  // position
                 tareasViewModel.updateTarea(
                     TaskEntity(
@@ -233,79 +184,19 @@ class MyAdapter(
                         misListas[index].checks.joinToString()
                     )
                 )
-                /*listaTotal = getListaItems()  // (misListas[index].items + misListas[index].checks) as MutableList<String>
+                *//*listaTotal = getListaItems()  // (misListas[index].items + misListas[index].checks) as MutableList<String>
                 // CONTROL UPDATE DATA
                 for ((index, cadaItem) in listaTotal.withIndex()){
                     println("""
                     |$index $cadaItem""".trimMargin())
-                }*/
+                }*//*
                 true
-            }
+            }*/
 
             holder.bind(context, misListas[index])  // holder.bind(context, misListas[index], clickListener)
             //holder.update(item, misListas[index])
         }
     }
-
-    private fun renameList(posicionLista: Int, nombreLista: String) {
-        val dialogo = EditTextDialog.newInstance(
-            title = "Rename List",
-            hint = nombreLista,
-            layout = R.layout.dialog_new_list
-        )
-        dialogo.onOk = {
-            val name = dialogo.editText.text.toString()
-            //listaNombres.add(name)
-            //val lista = Lista(nombre = name, items = mutableListOf(), checks = mutableListOf())
-            if (name !in misListas.map { it.nombre }) {
-                //listas.add(lista)
-                //notifyItemInserted(listas.indexOf(lista))
-                tareasViewModel.deleteTarea(
-                    TaskEntity(
-                        misListas[posicionLista].nombre,
-                        misListas[posicionLista].items.joinToString(),
-                        misListas[posicionLista].checks.joinToString()
-                    )
-                )
-
-                misListas[posicionLista].nombre = name
-                notifyItemChanged(posicionLista)
-
-                tareasViewModel.saveTarea(
-                    TaskEntity(
-                        misListas[posicionLista].nombre,
-                        misListas[posicionLista].items.joinToString(),
-                        misListas[posicionLista].checks.joinToString()
-                    )
-                )
-
-                /*val listaNombre = it.nombreLista as TextView
-                val newNombre = listaNombre.text.toString()
-                misListas[pos].nombre = newNombre
-                //listaSelect.nombre.set(pos, newNombre)
-                notifyItemChanged(pos)*/
-            } else {
-                Toast.makeText(context, context.getString(R.string.elemento_repetido, name, "list"), Toast.LENGTH_SHORT)
-                    .show()
-            }
-            // adaptadorListas.notifyDataSetChanged()
-            // mostrarListas()  //addLista(lista)
-        }
-        dialogo.onCancel = {
-            Toast.makeText(context, "Operación cancelada", Toast.LENGTH_SHORT).show()
-        }
-        val ft = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
-        dialogo.show(ft, "editDescription")
-    }
-
-    /*private fun getItemPosition(item: Item): Int {
-        var i = 0
-        for (currentItem in misListas[index].checks) {
-            if (currentItem.getItemId() === item.getItemId()) break
-            i++
-        }
-        return i
-    }*/
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val miView = view
@@ -325,13 +216,5 @@ class MyAdapter(
                 //val rv = holder.rv_items as RecyclerView
             }
         }
-
-        /*fun update(item: String, elemento: Lista){
-            val imgIcon = miView.imgItem as ImageView
-            when (item) {
-                in elemento.checks -> imgIcon.setImageResource(R.drawable.ic_check_box_green_24dp)
-                else -> imgIcon.setImageResource(R.drawable.ic_check_box_outline_blank_gray_24dp)
-            }
-        }*/
     }
 }

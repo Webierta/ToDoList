@@ -11,12 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cbac9b34-20d3-40e9-b2b4-faeab15dda60" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskDao.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskDatabase.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskEntity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskViewModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/popup_menu_list.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/DragManageAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_delete_red_24dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_delete_white_24dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_drag_handle_black_24dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_edit_black_24dp.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
@@ -27,26 +26,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/About.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/About.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/Info.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/Info.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/ListActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/ListActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/MyAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/todolist/MyAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/navdrawer_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/navdrawer_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/recyclerview_item_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/recyclerview_item_row.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/items_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/items_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,59 +60,59 @@
     <session id="1191807787">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="71" />
+          <entry key="project.closed" value="79" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.13" value="1" />
-          <entry key="project.open.time.5" value="1" />
-          <entry key="project.open.time.6" value="26" />
-          <entry key="project.open.time.7" value="30" />
-          <entry key="project.open.time.8" value="9" />
+          <entry key="project.open.time.5" value="2" />
+          <entry key="project.open.time.6" value="30" />
+          <entry key="project.open.time.7" value="32" />
+          <entry key="project.open.time.8" value="10" />
           <entry key="project.open.time.9" value="4" />
-          <entry key="project.opened" value="73" />
+          <entry key="project.opened" value="81" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gradle" value="21" />
-          <entry key="kt" value="105" />
-          <entry key="xml" value="134" />
+          <entry key="kt" value="115" />
+          <entry key="xml" value="161" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Groovy" value="21" />
-          <entry key="Kotlin" value="105" />
-          <entry key="XML" value="134" />
+          <entry key="Kotlin" value="115" />
+          <entry key="XML" value="161" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="10" />
           <entry key="gradle" value="37" />
-          <entry key="kt" value="44594" />
-          <entry key="txt" value="420" />
-          <entry key="xml" value="2045" />
+          <entry key="kt" value="51339" />
+          <entry key="txt" value="422" />
+          <entry key="xml" value="2235" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="37" />
-          <entry key="Kotlin" value="44594" />
-          <entry key="PLAIN_TEXT" value="430" />
-          <entry key="XML" value="2045" />
+          <entry key="Kotlin" value="51339" />
+          <entry key="PLAIN_TEXT" value="432" />
+          <entry key="XML" value="2235" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/MainActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="140" column="44" lean-forward="true" selection-start-line="140" selection-start-column="44" selection-end-line="140" selection-end-column="44" />
+            <state relative-caret-position="540">
+              <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
               <folding>
-                <element signature="e#30#657#0" expanded="true" />
+                <element signature="e#30#805#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -131,10 +121,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/ListActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="179" column="5" lean-forward="true" selection-start-line="179" selection-start-column="5" selection-end-line="179" selection-end-column="5" />
+            <state relative-caret-position="3134">
+              <caret line="208" column="1" selection-start-line="208" selection-start-column="1" selection-end-line="208" selection-end-column="1" />
               <folding>
-                <element signature="e#30#630#0" expanded="true" />
+                <element signature="e#30#1048#0" expanded="true" />
+                <element signature="e#14512#14568#1" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/DragManageAdapter.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1385">
+              <caret line="19" selection-start-line="19" selection-end-line="19" />
+              <folding>
+                <element signature="e#30#544#0" expanded="true" />
+                <element signature="e#4318#4384#1" expanded="true" />
+                <element signature="e#5411#5462#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,19 +148,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/MyAdapter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="47" selection-start-line="47" selection-end-line="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskEntity.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+            <state relative-caret-position="385">
+              <caret line="199" selection-start-line="199" selection-end-line="199" />
               <folding>
-                <element signature="e#30#156#0" expanded="true" />
+                <element signature="e#30#515#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -164,7 +160,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskDao.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
+            <state relative-caret-position="-40">
               <caret line="5" selection-start-line="5" selection-end-line="5" />
               <folding>
                 <element signature="e#30#87#0" expanded="true" />
@@ -173,11 +169,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskDatabase.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="100">
-              <caret line="8" column="47" lean-forward="true" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+              <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
               <folding>
                 <element signature="e#30#150#0" expanded="true" />
               </folding>
@@ -188,7 +184,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskRepository.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
+            <state relative-caret-position="-80">
               <caret line="8" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#30#165#0" expanded="true" />
@@ -200,7 +196,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskViewModel.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
+            <state relative-caret-position="80">
               <caret line="4" selection-start-line="4" selection-end-line="4" />
               <folding>
                 <element signature="e#30#103#0" expanded="true" />
@@ -230,6 +226,7 @@
       <find>setHasOptionsMenu</find>
       <find>”</find>
       <find>RecyclerAdapterItem</find>
+      <find>Snackbar</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2686,14 +2683,12 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/ItemAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/ChapterAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list_row.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/strike_through.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_list_view_example.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/MostrarDialogo.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/Dialogo.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/EditTextDialog.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/menu/items_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/navigation/navigation.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
@@ -2705,17 +2700,12 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_info.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_done_all_green_24dp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_done.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_done_green_24dp.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_done_gray_24dp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/RecyclerAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/RecyclerAdapterItem.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/DragManageAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/popup_menu_list.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/recyclerview_item_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/recyclerview_list_row.xml" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskEntityDAO.kt" />
@@ -2724,14 +2714,21 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskEntity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskRepository.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/navdrawer_menu.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/About.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/Info.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskDao.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskViewModel.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/recyclerview_item_row.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_list.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/recyclerview_list_row.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/menu/items_menu.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/DragManageAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/MyAdapter.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/MainActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/ListActivity.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/todolist/MainActivity.kt" />
       </list>
     </option>
   </component>
@@ -2746,7 +2743,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2757,18 +2753,19 @@
             <path>
               <item name="ToDoList" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="ToDoList" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="todolist" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
             </path>
             <path>
               <item name="ToDoList" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="ToDoList" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="menu" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="ToDoList" type="1abcf292:AndroidViewProjectNode" />
@@ -2780,6 +2777,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
@@ -2907,14 +2905,14 @@
       <window_info id="Image Layers" order="5" />
       <window_info id="Designer" order="6" />
       <window_info id="Capture Tool" order="7" />
-      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.4973262" weight="0.34201586" />
+      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.49518716" weight="0.37032843" />
       <window_info anchor="bottom" id="Logcat" order="1" weight="0.45186862" />
-      <window_info anchor="bottom" id="TODO" order="2" visible="true" weight="0.42355606" />
+      <window_info anchor="bottom" id="TODO" order="2" weight="0.42242354" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32995495" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5026738" side_tool="true" weight="0.34201586" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50481284" side_tool="true" visible="true" weight="0.37032843" />
       <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49679145" weight="0.29105324" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49518716" weight="0.29218572" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.3295583" />
       <window_info anchor="bottom" id="Inspection Results" order="10" weight="0.3295583" />
@@ -2930,31 +2928,30 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/AlertaDialogo.kt" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_about.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="8" column="52" lean-forward="true" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_new_list.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_list_view_example.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_row.xml" />
@@ -2966,12 +2963,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_info.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="13" column="27" lean-forward="true" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -3052,15 +3049,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/RecyclerAdapterItem.kt" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/RecyclerAdapter.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/DragManageAdapter.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/recyclerview_item_row.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/EditTextDialog.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -3069,28 +3057,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/popup_menu_list.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_list.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
-        </state>
-      </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_new_item.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
@@ -3107,35 +3087,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/navdrawer_menu.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="13" column="9" lean-forward="true" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="11" column="47" lean-forward="true" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/items_menu.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-        </state>
-      </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="5" column="37" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/About.kt">
       <provider selected="true" editor-type-id="text-editor">
@@ -3151,82 +3116,109 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskEntity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/recyclerview_list_row.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        <state relative-caret-position="180">
+          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/recyclerview_item_row.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="13" column="38" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_list.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="17" column="44" lean-forward="true" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/items_menu.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="25" column="50" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+          <folding>
+            <element signature="e#1095#1120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/ListActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3134">
+          <caret line="208" column="1" selection-start-line="208" selection-start-column="1" selection-end-line="208" selection-end-column="1" />
+          <folding>
+            <element signature="e#30#1048#0" expanded="true" />
+            <element signature="e#14512#14568#1" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="1820">
-          <caret line="91" column="60" selection-start-line="91" selection-start-column="60" selection-end-line="91" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskRepository.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="309">
+          <caret line="60" column="33" lean-forward="true" selection-start-line="60" selection-start-column="33" selection-end-line="60" selection-end-column="33" />
           <folding>
-            <element signature="e#30#165#0" expanded="true" />
+            <element signature="e#5038#5057#0" expanded="true" />
           </folding>
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskViewModel.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/DragManageAdapter.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="-1385">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
           <folding>
-            <element signature="e#30#103#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="140" column="44" lean-forward="true" selection-start-line="140" selection-start-column="44" selection-end-line="140" selection-end-column="44" />
-          <folding>
-            <element signature="e#30#657#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/ListActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="179" column="5" lean-forward="true" selection-start-line="179" selection-start-column="5" selection-end-line="179" selection-end-column="5" />
-          <folding>
-            <element signature="e#30#630#0" expanded="true" />
+            <element signature="e#30#544#0" expanded="true" />
+            <element signature="e#4318#4384#1" expanded="true" />
+            <element signature="e#5411#5462#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/MyAdapter.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="47" selection-start-line="47" selection-end-line="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskEntity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+        <state relative-caret-position="385">
+          <caret line="199" selection-start-line="199" selection-end-line="199" />
           <folding>
-            <element signature="e#30#156#0" expanded="true" />
+            <element signature="e#30#515#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskDao.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
+        <state relative-caret-position="-40">
           <caret line="5" selection-start-line="5" selection-end-line="5" />
           <folding>
             <element signature="e#30#87#0" expanded="true" />
@@ -3237,9 +3229,39 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskDatabase.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="8" column="47" lean-forward="true" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+          <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
           <folding>
             <element signature="e#30#150#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskRepository.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-80">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#30#165#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/TaskViewModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#30#103#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/todolist/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
+          <folding>
+            <element signature="e#30#805#0" expanded="true" />
           </folding>
         </state>
       </provider>

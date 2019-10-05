@@ -2,6 +2,7 @@ package com.android.todolist
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,23 +13,26 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.RIGHT
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_list.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class ListActivity : AppCompatActivity() {
 
     private lateinit var tareasViewModel: TaskViewModel
-
     private lateinit var lista: Lista
     private lateinit var listaTotal: List<String>
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var miAdapter: MyAdapter
+    private lateinit var deleteIcon: Drawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
+        //deleteIcon = ContextCompat.getDrawable(this, R.drawable.ic_delete_white_24dp)!!
+        deleteIcon = resources.getDrawable(R.drawable.ic_delete_white_24dp, null)
 
         tareasViewModel = run {
             ViewModelProviders.of(this).get(TaskViewModel::class.java)
@@ -49,25 +53,16 @@ class ListActivity : AppCompatActivity() {
 
         linearLayoutManager = LinearLayoutManager(this)
         rv_items.layoutManager = linearLayoutManager
-        val dividerItemDecoration = DividerItemDecoration(
-            rv_items.context,
-            linearLayoutManager.orientation
-        )
+        val dividerItemDecoration = DividerItemDecoration(rv_items.context, linearLayoutManager.orientation)
         rv_items.addItemDecoration(dividerItemDecoration)
         miAdapter = MyAdapter(this, listas, indice)
         //miAdapter = MyAdapter(this, listas, indice) { partItem: String -> clickItem(partItem) }
         rv_items.adapter = miAdapter
 
-        /*for (i in 0 until miAdapter.itemCount) {
-            val v = cLayoutItem.getChildAt(i)
-            if (v !is ViewGroup) {
-                if (v is ImageView) {
-                    v.setImageResource(R.drawable.ic_check_box_green_24dp)
-                }
-            }
-        }*/
-
-        //mostrarListaItems()
+        // Setup ItemTouchHelper
+        val callback = DragManageAdapter(miAdapter, this, 0, RIGHT)
+        val helper = ItemTouchHelper(callback)
+        helper.attachToRecyclerView(rv_items)
 
         fabNewItem.setOnClickListener {
             layoutNewItem.visibility = View.VISIBLE
@@ -85,15 +80,11 @@ class ListActivity : AppCompatActivity() {
                     miAdapter.notifyItemInserted(lista.items.lastIndex)
                     //tareasViewModel.saveTarea(TaskEntity(lista.nombre, lista.items.joinToString(), lista.checks.joinToString()))
                     tareasViewModel.updateTarea(
-                        TaskEntity(
-                            lista.nombre,
-                            lista.items.joinToString(),
-                            lista.checks.joinToString()
-                        )
+                        TaskEntity(lista.nombre, lista.items.joinToString(), lista.checks.joinToString())
                     )
-
                 } else {
-                    Toast.makeText(this, this.getString(R.string.elemento_repetido, name, "item"), Toast.LENGTH_SHORT)
+                    Toast
+                        .makeText(this, this.getString(R.string.elemento_repetido, name, "item"), Toast.LENGTH_SHORT)
                         .show()
                 }
                 //miAdapter.notifyDataSetChanged()
@@ -105,72 +96,17 @@ class ListActivity : AppCompatActivity() {
             //mostrarListaItems()
         }
 
-        //listItems.isLongClickable = true
-        /*listItems.setOnItemLongClickListener { _, _, index, _ ->
-            val itemValue = listItems.getItemAtPosition(index) as String
-            if (itemValue in lista.items) {
-                lista.items.remove(itemValue)
-            } else {
-                lista.checks.remove(itemValue)
-            }
-            adaptadorItems.notifyDataSetChanged()
-            mostrarListaItems()
-            true
-        }
-
-        listItems.setOnItemClickListener { _, _, index, _ ->
-            val itemValue = listItems.getItemAtPosition(index) as String
-            if (itemValue in lista.items) {
-                val itemSelect = lista.items[index]
-                lista.items.remove(lista.items[index])
-                //miAdapter.notifyItemRemoved(index)
-                lista.checks.add(itemSelect)
-                //miAdapter.notifyItemInserted(lista.checks.indexOf(itemSelect))
-
-            } else {
-                val posicion = lista.checks.indexOf(itemValue)
-                val itemSelect = lista.checks[posicion]
-                lista.checks.remove(lista.checks[posicion])
-                //miAdapter.notifyItemRemoved(posicion)
-                lista.items.add(itemSelect)
-                //miAdapter.notifyItemInserted(lista.checks.indexOf(itemSelect))
-            }
-            //adaptadorItems.notifyDataSetChanged()
-            //mostrarListaItems()
-            miAdapter.notifyDataSetChanged()
+        /*swipeRefreshItems.setColorSchemeResources(R.color.blanco)
+        swipeRefreshItems.setProgressBackgroundColorSchemeResource(R.color.colorPrimary)
+        var checked = false
+        swipeRefreshItems.setOnRefreshListener {
+            if (!checked) marcarTodo() else desmarcarTodo()
+            checked = !checked
+            //miAdapter = MyAdapter(this, listas, indice)
+            //rv_items.adapter = miAdapter
+            swipeRefreshItems.isRefreshing = false
         }*/
-
     }
-
-    /*private fun show_children(v: View) {
-        val viewgroup = v as ViewGroup
-        for (i in 0 until 2) {  // for (i in 0 until viewgroup.childCount) {
-            val v1 = viewgroup.getChildAt(i)
-            if (v1 is ViewGroup) show_children(v1)
-            if (v1 is ImageView){
-                v1.setImageResource(R.drawable.ic_check_box_green_24dp)
-            }
-        }
-    }*/
-
-    /*private fun clickItem(item: String) {
-        if (item in lista.items) {
-            val posItem = lista.items.indexOf(item) //listaTotal.indexOf(item)
-            //val posCheck = listaTotal.lastIndex + 1
-            lista.items.remove(item)
-            lista.checks.add(item)
-            miAdapter.notifyItemMoved(posItem, lista.checks.lastIndex)
-        } else {
-            val posCheck = lista.checks.indexOf(item)
-            //val posItem = listaTotal.lastIndex + 1
-            lista.checks.remove(item)
-            lista.items.add(item)
-            //imgItem.setImageResource(R.drawable.ic_check_box_outline_blank_gray_24dp)
-            miAdapter.notifyItemMoved(posCheck, lista.items.lastIndex)
-        }
-        //miAdapter.notifyDataSetChanged()
-        //MainActivity().updateAdapter()
-    }*/
 
     override fun onSupportNavigateUp(): Boolean {
         val refresh = Intent(this, MainActivity::class.java)
@@ -189,41 +125,10 @@ class ListActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
-            R.id.marcar_all -> {
-                lista.checks.addAll(0, lista.items)  // lista.checks += lista.items
-                lista.items.clear()
-                miAdapter.notifyDataSetChanged()
-                tareasViewModel.updateTarea(
-                    TaskEntity(
-                        lista.nombre,
-                        lista.items.joinToString(),
-                        lista.checks.joinToString()
-                    )
-                )
-                // CONTROL UPDATE DATA
-                /*val listaTemporal = (lista.items + lista.checks) as MutableList<String>
-                for ((index, cadaItem) in listaTemporal.withIndex()){
-                    println("""
-                |$index $cadaItem""".trimMargin())
-                }*/
-                return true
-
-            }
-            R.id.desmarcar_all -> {
-                lista.items += lista.checks
-                lista.checks.clear()
-                miAdapter.notifyDataSetChanged()
-                tareasViewModel.updateTarea(
-                    TaskEntity(
-                        lista.nombre,
-                        lista.items.joinToString(),
-                        lista.checks.joinToString()
-                    )
-                )
-                return true
-            }
+            R.id.marcar_all -> marcarTodo()
+            R.id.desmarcar_all -> desmarcarTodo()
+            R.id.rename_list -> renameList()
             R.id.clear_list -> {
                 val dialogBuilder = AlertDialog.Builder(this)
                 dialogBuilder.setTitle(R.string.limpiar_lista)
@@ -233,11 +138,7 @@ class ListActivity : AppCompatActivity() {
                     lista.checks.clear()
                     miAdapter.notifyDataSetChanged()
                     tareasViewModel.updateTarea(
-                        TaskEntity(
-                            lista.nombre,
-                            lista.items.joinToString(),
-                            lista.checks.joinToString()
-                        )
+                        TaskEntity(lista.nombre, lista.items.joinToString(), lista.checks.joinToString())
                     )
                 }
                 dialogBuilder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
@@ -250,14 +151,59 @@ class ListActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    /*private fun mostrarListaItems() {
-        //adaptador = ArrayAdapter<String>(this, R.layout.list_row, lista.items)
+    private fun marcarTodo(): Boolean {
+        lista.checks.addAll(0, lista.items)  // lista.checks += lista.items
+        lista.items.clear()
+        miAdapter.notifyDataSetChanged()
+        tareasViewModel.updateTarea(
+            TaskEntity(lista.nombre, lista.items.joinToString(), lista.checks.joinToString())
+        )
+        return true
+    }
 
-        listaTotal = lista.items + lista.checks
-        adaptadorItems = ArrayAdapter(this, android.R.layout.simple_list_item_checked, listaTotal)
-        listItems.adapter = adaptadorItems
-        for (i in lista.items.size until listItems.adapter.count) {
-            listItems.setItemChecked(i, true)
+    private fun desmarcarTodo(): Boolean {
+        lista.items += lista.checks
+        lista.checks.clear()
+        miAdapter.notifyDataSetChanged()
+        tareasViewModel.updateTarea(
+            TaskEntity(lista.nombre, lista.items.joinToString(), lista.checks.joinToString())
+        )
+        return true
+    }
+
+    private fun renameList() {  //private fun renameList(index: Int, nombreLista: String) {
+        val dialogo = EditTextDialog.newInstance(
+            title = "Rename List",
+            hint = lista.nombre, // nombreLista,
+            layout = R.layout.dialog_new_list
+        )
+        dialogo.onOk = {
+            val name = dialogo.editText.text.toString()
+            //listaNombres.add(name)
+            //val lista = Lista(nombre = name, items = mutableListOf(), checks = mutableListOf())
+            if (name !in listas.map { it.nombre }) {
+                //listas.add(lista)
+                //notifyItemInserted(listas.indexOf(lista))
+                tareasViewModel.deleteTarea(
+                    TaskEntity(lista.nombre, lista.items.joinToString(), lista.checks.joinToString())
+                )
+                //listas[index].nombre = name
+                lista.nombre = name
+                miAdapter.notifyItemChanged(listas.indexOf(lista))
+                tareasViewModel.saveTarea(
+                    TaskEntity(lista.nombre, lista.items.joinToString(), lista.checks.joinToString())
+                )
+                supportActionBar?.title = lista.nombre
+            } else {
+                Toast
+                    .makeText(this, this.getString(R.string.elemento_repetido, name, "list"), Toast.LENGTH_SHORT)
+                    .show()
+            }
+            // adaptadorListas.notifyDataSetChanged()
+            // mostrarListas()  //addLista(lista)
         }
-    }*/
+        dialogo.onCancel = { Toast.makeText(this, "Operación cancelada", Toast.LENGTH_SHORT).show() }
+        val ft = this.supportFragmentManager.beginTransaction()
+        dialogo.show(ft, "editDescription")
+    }
 }

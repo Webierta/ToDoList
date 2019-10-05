@@ -1,96 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ListActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshItems"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent">-->
 
-        <LinearLayout
-            android:id="@+id/layoutNewItem"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/newItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/fab_margin"
-                android:layout_marginLeft="@dimen/fab_margin"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_marginRight="@dimen/fab_margin"
-                android:layout_weight="3"
-                android:ems="10"
-                android:hint="@string/new_item"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toStartOf="@+id/rv_items"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Prueba Item" />
-
-            <ImageButton
-                android:id="@+id/okNewItem"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:textAlignment="gravity"
-                app:srcCompat="@android:drawable/ic_input_add" />
-
-        </LinearLayout>
-
-<!--        <LinearLayout
-            android:id="@+id/layoutItems"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/layoutNewItem">
-
-            <ListView
-                android:id="@+id/listItems"
+            <LinearLayout
+                android:id="@+id/layoutNewItem"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/fab_margin"
-                android:layout_marginStart="@dimen/fab_margin"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:choiceMode="multipleChoice"
-                android:divider="@color/colorPrimaryDark"
-                android:dividerHeight="1dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-        </LinearLayout>-->
+                <EditText
+                    android:id="@+id/newItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fab_margin"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:layout_marginEnd="@dimen/fab_margin"
+                    android:layout_marginRight="@dimen/fab_margin"
+                    android:layout_weight="3"
+                    android:ems="10"
+                    android:hint="@string/new_item"
+                    android:inputType="textPersonName"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toStartOf="@+id/rv_items"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Prueba Item" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_items"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutNewItem" />
+                <ImageButton
+                    android:id="@+id/okNewItem"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/fab_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:textAlignment="gravity"
+                    app:srcCompat="@android:drawable/ic_input_add" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <!--        <LinearLayout
+                        android:id="@+id/layoutItems"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@+id/layoutNewItem">
+
+                        <ListView
+                            android:id="@+id/listItems"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/fab_margin"
+                            android:layout_marginStart="@dimen/fab_margin"
+                            android:layout_marginTop="@dimen/fab_margin"
+                            android:layout_marginEnd="@dimen/fab_margin"
+                            android:choiceMode="multipleChoice"
+                            android:divider="@color/colorPrimaryDark"
+                            android:dividerHeight="1dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </LinearLayout>-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_items"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutNewItem" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabNewItem"

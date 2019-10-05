@@ -22,6 +22,12 @@
                 android:title="@string/desmarcar_all" />
 
             <item
+                android:id="@+id/rename_list"
+                android:icon="@drawable/ic_edit_black_24dp"
+                android:orderInCategory="100"
+                android:title="@string/renombrar_lista" />
+
+            <item
                 android:id="@+id/clear_list"
                 android:icon="@android:drawable/ic_delete"
                 android:orderInCategory="100"
