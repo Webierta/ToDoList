@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">To Do List</string>
+    <string name="info">Info</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="about">Acerca de</string>
+    <string name="new_list">Nueva Lista</string>
+    <string name="add_new_list">Añadir nueva Lista</string>
+    <string name="remove_all_lists">Eliminar todas las listas</string>
+    <string name="sort_a_z">Ordenar A-Z</string>
+    <string name="sort_done">Ordenar por completadas</string>
+    <string name="name">Nombre</string>
+    <string name="new_item">Nuevo ítem</string>
+    <string name="marcar_all">Marcar todo</string>
+    <string name="desmarcar_all">Desmarcar todo</string>
+    <string name="limpiar_lista">Vaciar lista</string>
+    <string name="limpiar_lista_msg">¿Eliminar todos los ítems de la lista?</string>
+    <string name="delete_listas">Eliminar todo</string>
+    <string name="delete_listas_msg">¿Eliminar todas las listas y sus ítems?</string>
+    <string name="renombrar">Renombrar</string>
+    <string name="renombrar_lista">Renombrar lista</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="delete_lista">Eliminar la lista</string>
+    <string name="delete_lista_msg">¿Eliminar esta lista y todos sus ítems?</string>
+    <string name="menu">Menú</string>
+    <string name="close">Cerrar</string>
+    <string name="removed_item">EL ítem %1$s ha sido eliminado</string>
+    <string name="elemento_eliminado">%2$s %1$s eliminado</string>
+    <string name="elemento_repetido">%2$s %1$s ya existe</string>
+    <string name="undo">DESHACER</string>
+    <string name="info_text">
+        <![CDATA[
+        <div>
+            <p><b>To Do List</b> es una aplicación sencilla para la gestión rápida de listas de tareas pendientes.</p>
+            <p>La aplicación permite ordenar las listas por distintos criterios: por tareas pendientes, por orden alfabético y por preferencia personal.</p>
+            <p>Distintos iconos indican si todas las tareas de una lista se han completado.</p>
+            <p>Gestos para acciones rápidas:</p>
+            <ul>
+                <li>Desplaza una lista o una tarea hacia la derecha para eliminarla.</li>
+                <li>PMantén presionada una lista hasta que cambie de color y arrástrala hacia arriba o hacia abajo para cambiar su posición.</li>
+            </ul>
+        </div>
+        ]]>
+    </string>
+    <string name="about_text">
+        <![CDATA[
+        <div>
+            <h2>Seguridad y privacidad</h2>
+            <p><i>To Do List</i> no se conecta a internet y los datos se guardan solo en tu dispositivo.</p>
+            <p>Esta aplicación no requiere ningún permiso y renuncia a la publicidad y los mecanismos de seguimiento.</p>
+            <h2>Licencia</h2>
+            <p>Software libre de código abierto (código fuente en <a href="https://github.com/Webierta/ToDoList">Github</a>) sujeto a la GNU General Public License v.3, distribuido con la esperanza de que sea útil, pero SIN NINGUNA GARANTÍA.</p>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div>
+            <h2>Autor</h2>
+            <p>Copyleft 2019 - Jesús Cuerda (Webierta) - All Wrongs Reserved.</p>
+            <p>App desarrollada por y para el blog <a href="https://kotlindoc.blogspot.com">Kotlin Doc</a> sobre programación con Kotlin y Android.</p>
+            <p>Puedes colaborar con el desarrollo de esta y próximas aplicaciones haciendo una pequeña aportación en
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=986PSAHLH6N4L">PayPal</a>.</p>
+        </div>
+        ]]>
+    </string>
+    <string name="name_list">Nombre</string>
+</resources>

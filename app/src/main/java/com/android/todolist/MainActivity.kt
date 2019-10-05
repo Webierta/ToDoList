@@ -163,8 +163,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun addNewList() {
         val dialogo = EditTextDialog.newInstance(
-            title = "Add new List",
-            hint = "Name List",
+            title = getString(R.string.add_new_list),
+            hint = getString(R.string.name_list),
             layout = R.layout.dialog_new_list
         )
         dialogo.onOk = {

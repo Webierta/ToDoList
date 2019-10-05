@@ -1,9 +1,24 @@
 package com.android.todolist
 
 import android.os.Bundle
+import android.text.Html
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_about.*
+import android.text.method.ScrollingMovementMethod
+import android.R.attr.label
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Context.CLIPBOARD_SERVICE
+import android.text.method.LinkMovementMethod
+import android.widget.Toast
+import android.view.View
+import android.widget.TextView
+
 
 class About : AppCompatActivity() {
+
+    lateinit var texto1: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,7 +30,10 @@ class About : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
         }
 
-        // TODO: Contenido
+        val texto = resources.getString(R.string.about_text)
+        text_about.text = Html.fromHtml(texto)
+        text_about.movementMethod = ScrollingMovementMethod()
+        text_about.movementMethod = LinkMovementMethod.getInstance()
 
     }
 

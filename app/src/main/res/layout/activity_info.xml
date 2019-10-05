@@ -7,11 +7,11 @@
     tools:context=".Info">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="380dp"
-        android:text="INFO"
+        android:id="@+id/text_info"
+        style="@style/texto_largo"
+        android:focusableInTouchMode="false"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
