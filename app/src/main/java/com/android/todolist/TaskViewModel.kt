@@ -9,17 +9,9 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     val tareas = repository.getTareas()
 
-    //val tareasAZ = repository.orderAZTareas()
-
-    //fun getTareaByNombre(name: String) = repository.getTarea(name)
-
     fun saveTarea(tarea: TaskEntity) {
         repository.insert(tarea)
     }
-
-    /*fun insertarLista(tarea: List<TaskEntity>){
-        repository.insertOrder(tarea)
-    }*/
 
     fun clearTabla() {
         repository.deleteAll()
@@ -32,4 +24,5 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     fun deleteTarea(tarea: TaskEntity) {
         repository.delete(tarea)
     }
+
 }

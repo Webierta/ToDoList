@@ -1,7 +1,6 @@
 package com.android.todolist
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -29,12 +28,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var tareasViewModel: TaskViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var miAdapter: MyAdapter
-    private lateinit var deleteIcon: Drawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        deleteIcon = resources.getDrawable(R.drawable.ic_delete_white_24dp, null)
 
         tareasViewModel = run {
             ViewModelProviders.of(this).get(TaskViewModel::class.java)
@@ -53,7 +50,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val dividerItemDecoration = DividerItemDecoration(rv_listas.context, linearLayoutManager.orientation)
         rv_listas.addItemDecoration(dividerItemDecoration)
         miAdapter = MyAdapter(this, listas, 0)
-        //miAdapter = MyAdapter(this, listas, 0) { lista: String -> clickItem(lista) }
         rv_listas.adapter = miAdapter
 
         val callback = DragManageAdapter(miAdapter, this, UP or DOWN or START or END, RIGHT)
@@ -61,44 +57,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         helper.attachToRecyclerView(rv_listas)
 
         fab.setOnClickListener {
-            addNewList()  // showDialogoNewList()
+            addNewList()
         }
-
-        /*listListas.setOnItemLongClickListener { adapterView, view, index, id ->
-            Toast.makeText(this, "Long click detected", Toast.LENGTH_SHORT).show()
-            // dialogo de confirmación
-            // OK -> eliminar lista
-            listas.removeAt(index)
-            adaptadorListas.notifyDataSetChanged()
-            mostrarListas()
-            //val listValue = listListas.getItemAtPosition(index) as String
-            //listaNombres.remove(listValue)
-            true
-        }
-
-        listListas.setOnItemClickListener { adapterView, view, index, id ->
-            //val listValue = listListas.getItemAtPosition(index) as String
-            //val lista = Lista.nombre
-            //val indice = listas.indexOf(listValue)
-            if (listListas.isItemChecked(index)) {
-                listListas.setItemChecked(index, false)
-            } else {
-                listListas.setItemChecked(index, true)
-            }
-            val toActivity = Intent(this, ListActivity::class.java)
-            toActivity.putExtra("indice", index)
-            startActivity(toActivity)
-        }*/
-
-        /*swipeRefreshListas.setColorSchemeResources(R.color.blanco)
-        swipeRefreshListas.setProgressBackgroundColorSchemeResource(R.color.colorPrimary)
-        var orden = false
-        swipeRefreshListas.setOnRefreshListener {
-            if (!orden) ordenarAZ() else ordenarDone()
-            orden = !orden
-            swipeRefreshListas.isRefreshing = false
-        }*/
-
     }
 
     private fun addObserver() {
@@ -118,24 +78,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         tareasViewModel.tareas.observe(this, observer)
     }
-
-    /*private fun clickItem(item: String) {
-        val listaNombres = listas.map { it.nombre }
-        val posicion = listaNombres.indexOf(item)
-        //Toast.makeText(this, listas[posicion].nombre, Toast.LENGTH_SHORT).show()
-        Toast.makeText(this, listaNombres[posicion], Toast.LENGTH_SHORT).show()
-        val toActivity = Intent(this, ListActivity::class.java)
-        toActivity.putExtra("indice", posicion)
-        this.startActivity(toActivity)
-    }*/
-
-    /*private fun listaItemClicked(lista : Lista) {
-        Toast.makeText(this, "Clicked: ${lista.nombre}", Toast.LENGTH_LONG).show()
-        //val index = listas.indexOf(lista.nombre)
-        val toActivity = Intent(this, ListActivity::class.java)
-        toActivity.putExtra("indice", index)
-        this.startActivity(toActivity)
-    }*/
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -177,9 +119,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     TaskEntity(lista.nombre, lista.items.joinToString(), lista.checks.joinToString())
                 )
             } else {
-                Toast
-                    .makeText(this, this.getString(R.string.elemento_repetido, name, "list"), Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this, this.getString(R.string.list_duplicate, name), Toast.LENGTH_SHORT).show()
             }
         }
         dialogo.onCancel = { Toast.makeText(this, "Operación cancelada", Toast.LENGTH_SHORT).show() }
@@ -218,26 +158,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             listas.add(listaAZ)
             miAdapter.notifyItemInserted(listas.indexOf(listaAZ))
             tareasViewModel.saveTarea(
-                TaskEntity(
-                    listaAZ.nombre,
-                    listaAZ.items.joinToString(),
-                    listaAZ.checks.joinToString()
-                )
+                TaskEntity(listaAZ.nombre, listaAZ.items.joinToString(), listaAZ.checks.joinToString())
             )
         }
         rv_listas.adapter = miAdapter
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) drawer_layout.closeDrawer(GravityCompat.START)
+        else super.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        menu.getItem(0).subMenu.hasVisibleItems()
         return true
     }
 
@@ -257,19 +191,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    //object UpdateListas{
-/*    fun mostrarListas() {
-        //val listaNombres = listas.map { it.nombre }
-        //adaptadorListas = ArrayAdapter(this, android.R.layout.simple_list_item_1, lista.)
-
-        val listaNombres = listas.map { it.nombre }
-        adaptadorListas = ArrayAdapter(this, android.R.layout.simple_list_item_checked, listaNombres)
-        listListas.adapter = adaptadorListas
-
-        for ((i, cadaLista) in listas.withIndex()) {
-            if (cadaLista.checks.size > 0 && cadaLista.items.size < 1) {
-                listListas.setItemChecked(i, true)
-            }
-        }
-    }*/
 }

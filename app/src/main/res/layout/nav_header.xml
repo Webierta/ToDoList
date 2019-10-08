@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.MaterialComponents.Snackbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimaryDark"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="@dimen/fab_margin"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:padding="@dimen/fab_margin">
+    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark">-->
+    <!--android:background="@color/colorPrimaryDark"-->
 
     <ImageView
-        android:id="@+id/imageLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/img_logo"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/ic_list" />
 

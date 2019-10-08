@@ -37,16 +37,12 @@ class EditTextDialog : DialogFragment() {
         val hint = arguments?.getString(EXTRA_HINT)
         val layout = arguments?.getInt(EXTRA_LAYOUT)
         val view = when (layout) {
-            is Int -> {
-                activity!!.layoutInflater.inflate(layout, null)
-            }
+            is Int -> activity!!.layoutInflater.inflate(layout, null)
             else -> null
         }
-        if (view != null) {
-            when (layout) {
-                R.layout.dialog_new_list -> editText = view.editText_newList
-                R.layout.dialog_new_item -> editText = view.editText_newItem
-            }
+        if (view != null) when (layout) {
+            R.layout.dialog_new_list -> editText = view.editText_newList
+            R.layout.dialog_new_item -> editText = view.editText_newItem
         }
         editText.hint = hint
 
@@ -54,11 +50,7 @@ class EditTextDialog : DialogFragment() {
             .setTitle(title)
             .setView(view)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                if (!editText.text.isBlank()) {
-                    onOk?.invoke()
-                } else {
-                    onCancel?.invoke()
-                }
+                if (!editText.text.isBlank()) onOk?.invoke() else onCancel?.invoke()
             }
             .setNegativeButton(android.R.string.cancel) { _, _ ->
                 onCancel?.invoke()
@@ -66,4 +58,5 @@ class EditTextDialog : DialogFragment() {
 
         return builder.create()
     }
+
 }

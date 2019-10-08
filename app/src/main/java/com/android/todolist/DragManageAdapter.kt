@@ -35,7 +35,9 @@ class DragManageAdapter(adapter: MyAdapter, context: Context, dragDirs: Int, swi
         // for (i in from..to + 1) misListas[i] = misListas.set(i - 1, misListas[i])
         nameAdapter.notifyItemMoved(from, to)
         tareasViewModel.clearTabla()
-        for (ls in listas) tareasViewModel.saveTarea(TaskEntity(ls.nombre, ls.items.joinToString(), ls.checks.joinToString()))
+        for (ls in listas) tareasViewModel.saveTarea(
+            TaskEntity(ls.nombre, ls.items.joinToString(), ls.checks.joinToString())
+        )
         return true
     }
 
@@ -63,7 +65,11 @@ class DragManageAdapter(adapter: MyAdapter, context: Context, dragDirs: Int, swi
             listas.removeAt(pos)
             nameAdapter.notifyItemRemoved(pos)
             Snackbar
-                .make(viewHolder.itemView, contexto.getString(R.string.elemento_eliminado, deletedLista.nombre, "list"), Snackbar.LENGTH_LONG)
+                .make(
+                    viewHolder.itemView,
+                    contexto.getString(R.string.list_delete, deletedLista.nombre),
+                    Snackbar.LENGTH_LONG
+                )
                 .setAction(R.string.undo) { undoDelete(pos, deletedLista) }
                 .show()
         }
@@ -73,11 +79,16 @@ class DragManageAdapter(adapter: MyAdapter, context: Context, dragDirs: Int, swi
             val listaTotal = nameAdapter.getListaItems()
             val pos = listaTotal.indexOf(itemValue)
             val indice = nameAdapter.index
-            if (itemValue in listas[indice].items) listas[indice].items.remove(itemValue) else listas[indice].checks.remove(itemValue)
+            if (itemValue in listas[indice].items) listas[indice].items.remove(itemValue)
+            else listas[indice].checks.remove(itemValue)
             nameAdapter.notifyItemRemoved(pos)
             Snackbar
-                .make(viewHolder.itemView, contexto.getString(R.string.elemento_eliminado, itemValue, "item"), Snackbar.LENGTH_SHORT)
-                .show()  //.setAction("Undo", { undoDelete(itemsLista, pos, itemValue) })
+                .make(
+                    viewHolder.itemView,
+                    contexto.getString(R.string.item_delete, itemValue),
+                    Snackbar.LENGTH_SHORT
+                )
+                .show()
             tareasViewModel.updateTarea(
                 TaskEntity(listas[indice].nombre, listas[indice].items.joinToString(), listas[indice].checks.joinToString())
             )
@@ -108,4 +119,5 @@ class DragManageAdapter(adapter: MyAdapter, context: Context, dragDirs: Int, swi
         deleteIcon.draw(c)
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
+
 }

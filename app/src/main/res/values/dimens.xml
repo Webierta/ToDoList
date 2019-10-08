@@ -1,5 +1,4 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="titulo">36sp</dimen>
     <dimen name="alto_logo">100dp</dimen>
 </resources>
