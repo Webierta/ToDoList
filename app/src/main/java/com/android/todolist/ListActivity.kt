@@ -14,7 +14,7 @@ import androidx.core.view.MenuCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.ItemTouchHelper.RIGHT
+import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_list.*
 
@@ -55,7 +55,8 @@ class ListActivity : AppCompatActivity() {
         miAdapter = MyAdapter(this, listas, indice)
         rv_items.adapter = miAdapter
 
-        val callback = DragManageAdapter(miAdapter, this, 0, RIGHT)
+        //val callback = DragManageAdapter(miAdapter, this, 0, RIGHT)
+        val callback = DragManageAdapter(miAdapter, this, UP or DOWN or START or END, RIGHT)
         val helper = ItemTouchHelper(callback)
         helper.attachToRecyclerView(rv_items)
 

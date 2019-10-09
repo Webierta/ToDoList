@@ -33,7 +33,7 @@
             <p>Gestures for quick actions:</p>
             <ul>
                 <li>Drag a list or task to the right to delete it.</li>
-                <li>Press and hold a list until it changes color and drag it up or down to change its position.</li>
+                <li>Press and hold a list until it changes color and drag it up or down to change its position (pending tasks always appear before the tasks done; you can only drag pending tasks).</li>
             </ul>
         </div>
         ]]>

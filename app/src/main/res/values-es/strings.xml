@@ -28,7 +28,7 @@
             <p>Gestos para acciones rápidas:</p>
             <ul>
                 <li>Desplaza una lista o una tarea hacia la derecha para eliminarla.</li>
-                <li>PMantén presionada una lista hasta que cambie de color y arrástrala hacia arriba o hacia abajo para cambiar su posición.</li>
+                <li>Mantén presionada una lista o una tarea hasta que cambie de color y arrástrala hacia arriba o hacia abajo para cambiar su posición (las tareas pendientes siempre aparecen sobre las realizadas; solo se pueden arrastar las tareas pendientes).</li>
             </ul>
         </div>
         ]]>

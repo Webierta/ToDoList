@@ -26,24 +26,51 @@ class DragManageAdapter(adapter: MyAdapter, context: Context, dragDirs: Int, swi
     private val deleteIcon = contexto.resources.getDrawable(R.drawable.ic_delete_white_24dp, null)
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-        if (contexto is ListActivity) return false
+
         val from = viewHolder.adapterPosition
         val to = target.adapterPosition
-        if (from < to) for (i in from until to) Collections.swap(listas, i, i + 1)
-        // for (i in from until to) misListas[i] = misListas.set(i + 1, misListas[i])
-        else for (i in from downTo to + 1) Collections.swap(listas, i, i - 1)
-        // for (i in from..to + 1) misListas[i] = misListas.set(i - 1, misListas[i])
-        nameAdapter.notifyItemMoved(from, to)
-        tareasViewModel.clearTabla()
-        for (ls in listas) tareasViewModel.saveTarea(
-            TaskEntity(ls.nombre, ls.items.joinToString(), ls.checks.joinToString())
-        )
+
+        if (contexto is MainActivity) {
+            if (from < to) for (i in from until to) Collections.swap(listas, i, i + 1)
+            // for (i in from until to) misListas[i] = misListas.set(i + 1, misListas[i])
+            else for (i in from downTo to + 1) Collections.swap(listas, i, i - 1)
+            // for (i in from..to + 1) misListas[i] = misListas.set(i - 1, misListas[i])
+            nameAdapter.notifyItemMoved(from, to)
+            tareasViewModel.clearTabla()
+            for (ls in listas) tareasViewModel.saveTarea(
+                TaskEntity(ls.nombre, ls.items.joinToString(), ls.checks.joinToString())
+            )
+        }
+
+        if (contexto is ListActivity) {
+            val indice = nameAdapter.index
+            if (from < listas[indice].items.size && to < listas[indice].items.size) {
+                if (from < to) for (i in from until to) Collections.swap(listas[indice].items, i, i + 1)
+                else for (i in from downTo to + 1) Collections.swap(listas[indice].items, i, i - 1)
+                nameAdapter.notifyItemMoved(from, to)
+                tareasViewModel.updateTarea(
+                    TaskEntity(listas[indice].nombre, listas[indice].items.joinToString(), listas[indice].checks.joinToString())
+                )
+            } else {
+                return false
+            }
+        }
+
         return true
     }
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         super.onSelectedChanged(viewHolder, actionState)
-        if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+        /*if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+            viewHolder?.itemView?.alpha = 0.5f
+            viewHolder?.itemView?.setBackgroundColor(Color.parseColor("#deeaca"))  // #D3D3D3
+        }*/
+        val controlSelected = when {
+            contexto is MainActivity -> true
+            viewHolder != null && contexto is ListActivity && viewHolder.adapterPosition < listas[nameAdapter.index].items.size -> true
+            else -> false
+        }
+        if (controlSelected && actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
             viewHolder?.itemView?.alpha = 0.5f
             viewHolder?.itemView?.setBackgroundColor(Color.parseColor("#deeaca"))  // #D3D3D3
         }
