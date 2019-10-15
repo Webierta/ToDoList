@@ -1,0 +1,8 @@
+<p><i>To Do List</i> es una aplicación sencilla para la administración rápida de listas de tareas pendientes.</p>
+<p>La aplicación permite ordenar las listas por diferentes criterios: por tareas pendientes, por orden alfabético y por preferencia personal. Diferentes iconos indican si todas las tareas de una lista se han completado.</p>
+
+<p><b>Gestos para acciones rápidas:</b></p>
+<ul>
+ <li>Arrastra una lista o tarea hacia la derecha para eliminarla.</li>
+ <li>Mantén presionada una lista hasta que cambie de color y arrástrela hacia arriba o hacia abajo para cambiar su posición (las tareas por hacer siempre aparecen antes que las tareas realizadas; solo puede arrastrar tareas por hacer).</li>
+</ul>

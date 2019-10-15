@@ -1,0 +1,8 @@
+<p><i>To Do List</i> ist eine einfache App zur Verwaltung von Aufgabenlisten.</p>
+<p>Die App erlaubt es, Listen nach verschiedenen Kriterien zu sortieren: nach offenen Aufgaben, alphabetisch, sowie nach persönlichen Vorlieben. Unterschiedliche Icons zeigen an, ob alle Aufgaben in einer Liste erledigt sind.</p>
+
+<p><b>Gesten für Schnell-Aktionen:</b></p>
+<ul>
+ <li>Schiebe eine Liste oder Aufgabe nach rechts, um sie zu löschen.</li>
+ <li>Drücke und halte eine Liste, bis sie ihre Farbe ändert, und schiebe sie nach oben oder unten, um ihre Position zu ändern. Noch nicht erledigte Aufgaben werden immer vor bereits erledigten angezeigt; nur offene Aufgaben können verschoben werden.</li>
+</ul>

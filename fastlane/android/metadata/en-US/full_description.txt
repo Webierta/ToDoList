@@ -1,0 +1,8 @@
+<p><i>To Do List</i> is a simple application for quick management of to-do lists.</p>
+<p>The application allows you to sort the lists by different criteria: by pending tasks, by alphabetical order and by personal preference. Different icons indicate if all the tasks in a list have been completed.</p>
+
+<p><b>Gestures for quick actions:</b></p>
+<ul>
+ <li>Drag a list or task to the right to delete it.</li>
+ <li>Press and hold a list until it changes color and drag it up or down to change its position (pending tasks always appear before the tasks done; you can only drag pending tasks).</li>
+</ul>
