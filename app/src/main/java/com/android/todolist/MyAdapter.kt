@@ -73,7 +73,11 @@ class MyAdapter(
                     holder.itemView.nombreItem.paintFlags =
                         holder.itemView.nombreItem.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 }
-                else -> holder.itemView.imgItem.setImageResource(R.drawable.ic_check_box_outline_blank_gray_24dp)
+                else -> {
+                    holder.itemView.imgItem.setImageResource(R.drawable.ic_check_box_outline_blank_gray_24dp)
+                    holder.itemView.nombreItem.paintFlags =
+                        holder.itemView.nombreItem.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                }
             }
 
             holder.itemView.setOnClickListener {
@@ -141,6 +145,8 @@ class MyAdapter(
                 itemNombre.text = elementoNombre
                 if (elementoNombre in elemento.checks) {
                     itemNombre.paintFlags = itemNombre.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                } else {
+                    itemNombre.paintFlags = itemNombre.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
                 }
                 //val rv = holder.rv_items as RecyclerView
             }
