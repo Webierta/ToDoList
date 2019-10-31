@@ -41,6 +41,8 @@
     <string name="about_text">
         <![CDATA[
         <div>
+            <h2>Todo List</h2>
+            <p>Version 1.1</p>
             <h2>Security and privacy</h2>
             <p><i>To Do List</i> does not connect to the network and the data is saved only on your device.</p>
             <p>This application does not require any permission and waives advertising and tracking mechanisms.</p>

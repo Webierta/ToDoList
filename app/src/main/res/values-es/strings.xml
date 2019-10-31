@@ -36,6 +36,8 @@
     <string name="about_text">
         <![CDATA[
         <div>
+            <h2>Todo List</h2>
+            <p>Version 1.1</p>
             <h2>Seguridad y privacidad</h2>
             <p><i>To Do List</i> no se conecta a internet y los datos se guardan solo en tu dispositivo.</p>
             <p>Esta aplicación no requiere ningún permiso y renuncia a la publicidad y los mecanismos de seguimiento.</p>
